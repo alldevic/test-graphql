@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  like-django:
+    container_name: tgr-like-django
+    user: ${CURRENT_UID}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app/:rw
+    ports:
+      - 3000:3000
+      - 5173:5173
+    command: bash -c "yarn && yarn dev"
+

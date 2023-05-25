@@ -1,0 +1,21 @@
+{
+  "name": "test-graphql",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "repository": "https://github.com/alldevic/test-graphql.git",
+  "author": "doxopokc <lilondin@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "yarn@3.5.1",
+  "workspaces": [
+    "frontend",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn dev:back & yarn dev:front",
+    "dev:front": "yarn workspace frontend dev",
+    "dev:back": "yarn workspace backend start:dev",
+    "test": "jest"
+  }
+}
