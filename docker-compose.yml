@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  like-django:
-    container_name: tgr-like-django
+  test-graphql:
+    container_name: test-graphql
     user: ${CURRENT_UID}
     build:
       context: .
@@ -13,4 +13,30 @@ services:
       - 3000:3000
       - 5173:5173
     command: bash -c "yarn && yarn dev"
+    networks:
+      private_network:
+        ipv4_address: 172.16.0.5
 
+  db:
+    container_name: test-graphql-db
+    image: postgres:15-alpine
+    volumes:
+      - test-graphql-db:/var/lib/postgresql/data:rw
+    environment:
+      POSTGRES_DB: TESTDB
+      POSTGRES_USER: GRAPH
+      POSTGRES_PASSWORD: QL
+    networks:
+      private_network:
+        ipv4_address: 172.16.0.10
+
+networks:
+  private_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/16
+
+volumes:
+  test-graphql-db:
+    external: true
